@@ -1,6 +1,5 @@
 # EECS493
-## Final Project  
-## Team 11  
+## Final Project - Team 11  
   
 Google API key: AIzaSyAQQQZNZLunDSCOcQy4cxD4SnKs2DQxLGk  
   
