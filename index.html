@@ -1,10 +1,43 @@
-<html>
-<h1>University of Michigan Interactive Map</h1>
+<!DOCTYPE html>
 
-<head>Final Project</head>
+<html lang="en-US">
+<head>
+  <title>University of Michigan Interactive Map</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<body>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="map.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQQQZNZLunDSCOcQy4cxD4SnKs2DQxLGk&callback=initMap" async defer></script>
+</title>
+
+<body ng-app = "">
+  <h3>University of Michigan Interactive Map</h3>
+
+  <div id="map"></div>
+  <script>
+    function initMap() {
+      var north = {lat: 42.292, lng: -83.716};
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: north
+      });
+      // var marker = new google.maps.Marker({
+      //   position: north,
+      //   map: map
+      // });
+    }
+  </script>
+
 </body>
-
-<footer>Danielle Connolly, Die Hu, Fengyi Liu, Chi Zhang, Jaimie Zhu</footer>
 </html>

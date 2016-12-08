@@ -1,4 +1,7 @@
-
+#map {
+        height: 400px;
+        width: 100%;
+       }
 
 .center {
 	margin:0 auto;
