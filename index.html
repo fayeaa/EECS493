@@ -24,7 +24,7 @@
 
 <body ng-app = "EventOnCampus">
   <div class="background" >
-    <img id="backPic" src="images/back1.jpg" style="position:absolute; width:100%; height:100%">
+    <img id="backPic" src="back1.jpg" style="position:absolute; width:100%; height:100%">
   <div class="mapTitle">
     <h3>University of Michigan Interactive Map</h3>
   </div>
@@ -36,7 +36,7 @@
       <div ng-controller = "ListEvent">
         <div class="ListTitle">Events on campus</div>
           {{numEvent}}
-         <div ng-repeat = "item in UMevents">
+         <div ng-repeat = "item in UMevents" class="singalEvents">
            <div><b>{{item.name}}</b></div>
            <div>{{item.disc}}</div>
            <div>{{item.place}}</div>
@@ -98,7 +98,7 @@
       var bounds = new google.maps.LatLngBounds();
       places.forEach(function(place) {
       var icon = {
-        url: 'images/um_marker.png',
+        url: 'um_marker.png',
         size: new google.maps.Size(80, 128),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 34),
