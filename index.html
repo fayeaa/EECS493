@@ -31,10 +31,9 @@
   <div style="margin:20px; height:500px;position:relative; top:20px">
       <div class="eventsList">
         <div style="color:DodgerBlue; font-size:17px; text-shadow: 1px 1px #191970;">
-        Events on Campus
+        Events on Campus<br><br>
       </div>
       <div ng-controller = "ListEvent">
-        <div class="ListTitle">Events on campus</div>
           {{numEvent}}
          <div ng-repeat = "item in UMevents" class="singalEvents">
            <div><b>{{item.name}}</b></div>
@@ -42,7 +41,7 @@
            <div>{{item.place}}</div>
            <div>{{item.date}}</div>
            <div>{{item.time}}</div>
-          }
+
         </div>
         </div>
     </div>
