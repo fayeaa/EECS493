@@ -33,15 +33,18 @@
         <div style="color:DodgerBlue; font-size:17px; text-shadow: 1px 1px #191970;">
         Events on Campus
       </div>
-      {{numEvent}}
-     <div ng-repeat = "item in UMevents">
-       <div><b>{{item.name}}</b></div>
-       <div>{{item.disc}}</div>
-       <div>{{item.place}}</div>
-       <div>{{item.date}}</div>
-       <div>{{item.time}}</div>
-
-    </div>
+      <div ng-controller = "ListEvent">
+        <div class="ListTitle">Events on campus</div>
+          {{numEvent}}
+         <div ng-repeat = "item in UMevents">
+           <div><b>{{item.name}}</b></div>
+           <div>{{item.disc}}</div>
+           <div>{{item.place}}</div>
+           <div>{{item.date}}</div>
+           <div>{{item.time}}</div>
+          }
+        </div>
+        </div>
     </div>
       <div class="mapContainer">
         <div class="btn-group btn-group-sm">
@@ -51,7 +54,7 @@
         <div class="mapview" id="map" ></div>
       </div>
   </div>
-</div>
+  </div>
 
   <script>
     function initMap() {
