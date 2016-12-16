@@ -1,10 +1,10 @@
 #map {
-        height: 420px;
-        width:95%;
+        height: 100%;
+        width:100%;
         justify-content:center;
         position: absolute;
-        left:20px;
-        bottom:20px;
+        left:0px;
+        bottom:0px;
        }
 
 .center {
@@ -24,22 +24,22 @@
   outline:yellow solid 5px;
   color:yellow;
   margin:20px;
-  padding:20px;
+  padding:25px;
   text-align: center;
   position: relative;
   top:20px;
   z-index: 1;
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 45px;
 }
 .eventsList{
   float: left;
-  width:250px;
+  width:280px;
   height:100%;
   padding:10px;
   margin: 10px;
   outline:yellow solid 2px;
   background-color: #F0F8FF;
-  justify-content: center;
-  text-align: center;
 
 }
 .mapContainer{
@@ -49,7 +49,7 @@
   background-color: #F0F8FF;
   max-width:800px;
   position: relative;
-  left: 260px;
+  left: 290px;
   top:10px;
   margin: 20px;
 }
@@ -62,8 +62,67 @@
   margin:10px;
   padding:10px;
 }
-.singalEvents{
+
+
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  margin-bottom: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#select{
+  margin: 8px;
+
+}
+.displayEvents{
+  outline:midnightblue solid 1.5px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height:410px;
+}
+.singleEvents{
   background-color: white;
-  outline:midnightblue solid 1px;
-  font-size: 12px;
+  border-bottom:midnightblue solid 1px;
+  font-size: 15px;
+  padding:8px;
+  text-align: left;
+
+}
+.name{
+  text-align: left;
+}
+.detail{
+  color:gray;
+  font-size: 13px;
+
 }

@@ -5,15 +5,23 @@ app.controller('ListEvent',function($scope){
     $scope.numEvent = function(){
     	return $scope.numEvents.length;
     }
+    $scope.category = ["", "entertainment", "music", "sports", "academic"];
     console.log("1");
     console.log($scope.numEvent);
+    $scope.searchMap=function(place){
+      //$scope.isActive = !$scope.isActive;
+      console.log(place);
+      console.log($scope.mapSearchbox);
+
+
+  }
 });
 
 var recent_event = [
 {
 	"name": "Umix",
 	"disc": "Enjoy Harry Potter themed games and crafts",
-	"place": "Michigan Union,, Grand Ballroom",
+	"place": "Michigan Union, Grand Ballroom",
 	"date": "Friday, November 6th",
 	"time": "9pm-11pm",
 	"category": "entertainment"
@@ -32,7 +40,7 @@ var recent_event = [
 	"place": "Hill Auditorium",
 	"date": "Thursday, November 12th",
 	"time": "4pm-9pm",
-	"category": "acedemic"
+	"category": "academic"
 },
 {
 	"name": "Men's Basketball",
