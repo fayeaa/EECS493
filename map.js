@@ -4,6 +4,9 @@ var input;
 var searchBox;
 var test1;
 var test2;
+var markers = [];
+var markers1 = [];
+var eventPlace;
 
 var app = angular.module('EventOnCampus', []);
 app.controller('ListEvent',function($scope){
@@ -17,10 +20,10 @@ app.controller('ListEvent',function($scope){
     $scope.searchMap=function(place){
       //$scope.isActive = !$scope.isActive;
       console.log(place);
-      console.log($scope.mapSearchbox);
+      eventPlace = place;
+      console.log(eventPlace);
+      }
 
-
-  }
 });
 app.controller('mapCtrl',function($scope,$interval){
     $scope.placeTitle=test1;
@@ -81,21 +84,53 @@ function initMap() {
         zoom: 16,
         center: north
       });
-      // var marker = new google.maps.Marker({
-      //   position: north,
-      //   map: map
-      // });
+
+
+
+      google.maps.event.addListener(map, 'click', function(event) {
+        markers1.forEach(function(marker) {
+        marker.setMap(null);
+        });
+        markers1.push(new google.maps.Marker({
+          map: map,
+          icon: icon,
+          position: event.latLng,
+        }));
+      });
+
+      var icon = {
+        url: 'um_marker.png',
+        size: new google.maps.Size(80, 128),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(30, 48)
+      };
+
+
+
+
+
+
+
       // Create the search box and link it to the UI element.
       input = document.getElementById('pac-input');
+      //click event
+      var button = document.getElementById('list');
+      console.log(button);
+      button.onclick = function () {
+        var location = eventPlace;
+        console.log(location);
+
+      };
+      //searchBox
       searchBox = new google.maps.places.SearchBox(input);
       map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
       // Bias the SearchBox results towards current map's viewport.
       map.addListener('bounds_changed', function() {
       searchBox.setBounds(map.getBounds());
     });
 
-      var markers = [];
+
       // [START region_getplaces]
       // Listen for the event fired when the user selects a prediction and retrieve
       // more details for that place.
@@ -116,13 +151,6 @@ function initMap() {
       var bounds = new google.maps.LatLngBounds();
       places.forEach(function(place) {
         //console.log(place);
-      var icon = {
-        url: 'um_marker.png',
-        size: new google.maps.Size(80, 128),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(30, 48)
-      };
 
       // Create a marker for each place.
       markers.push(new google.maps.Marker({

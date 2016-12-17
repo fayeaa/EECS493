@@ -40,7 +40,7 @@
         <select id="select" ng-model="selected" ng-init="selected = category[0]" ng-options="item for item in category">
         </select>
         <br>
-          <div class="displayEvents">
+          <div class="displayEvents" id="list">
          <div ng-repeat = "item in UMevents|filter: selected:item.category" class="singleEvents" ng-click="searchMap(item.place)" ng-model=item.place>
 
            <div ng-show="item.category=='entertainment'">
