@@ -23,6 +23,10 @@ app.controller('ListEvent',function($scope){
       eventPlace = place;
       console.log(eventPlace);
       }
+    $scope.addPopularity=function(popularity){
+      $scope.newpopularity = parseInt(popularity) + 1;
+      console.log($scope.newpopularity);
+    }
 
 });
 app.controller('mapCtrl',function($scope,$interval){
@@ -42,7 +46,8 @@ var recent_event = [
 	"place": "Michigan Union, Grand Ballroom",
 	"date": "Friday, November 6th",
 	"time": "9pm-11pm",
-	"category": "entertainment"
+	"category": "entertainment",
+  "popularity": "89"
 },
 {
 	"name": "G-Men Concert",
@@ -50,7 +55,9 @@ var recent_event = [
 	"place": "Rackham Auditorium",
 	"date": "Saturday, November 7th",
 	"time": "6:30pm-8pm",
-	"category": "music"
+	"category": "music",
+  "popularity": "51"
+
 },
 {
 	"name": "TedX U of M",
@@ -58,7 +65,8 @@ var recent_event = [
 	"place": "Hill Auditorium",
 	"date": "Thursday, November 12th",
 	"time": "4pm-9pm",
-	"category": "academic"
+	"category": "academic",
+  "popularity": "32"
 },
 {
 	"name": "Men's Basketball",
@@ -66,7 +74,8 @@ var recent_event = [
 	"place": "Crisier Arena",
 	"date": "Thursday, November 12th",
 	"time": "7pm-9pm",
-	"category": "sports"
+	"category": "sports",
+  "popularity": "64"
 }
 ];
 

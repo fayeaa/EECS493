@@ -18,7 +18,6 @@
 
   <link rel="stylesheet" href="style.css" />
   <script src="map.js"></script>
-  <script src="events.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQQQZNZLunDSCOcQy4cxD4SnKs2DQxLGk&libraries=places&callback=initMap" async defer></script>
 
 </title>
@@ -39,9 +38,16 @@
         <span style="color:midnightblue;">Category:</span>
         <select id="select" ng-model="selected" ng-init="selected = category[0]" ng-options="item for item in category">
         </select>
+        <div>
+          <span style="color:midnightblue;">Sort:</span>
+          <div class="btn-group btn-group-sm">
+          <button type="button" ng-click="newsort=false" class="btn btn-primary active" id="popularity_switch">By Popularity</button>
+           <button type="button" ng-click="newsort=true" class="btn btn-primary" id="date_switch">By Date</button>
+          </div>
+        </div>
         <br>
           <div class="displayEvents" id="list">
-         <div ng-repeat = "item in UMevents|filter: selected:item.category" class="singleEvents" ng-click="searchMap(item.place)" ng-model=item.place>
+         <div ng-repeat = "item in UMevents|filter: selected:item.category|orderBy:(newsort==true?'':'-popularity')" class="singleEvents" ng-click="searchMap(item.place)" ng-model=item.place>
 
            <div ng-show="item.category=='entertainment'">
              <img ng-src="entertainment.png" style="max-width:100%; max-height:45px;float:left;margin-right:5px;margin-top:5px;">
@@ -54,6 +60,12 @@
            </div>
            <div ng-show="item.category=='sports'">
              <img ng-src="sports.png" style="max-width:100%; max-height:45px;float:left;margin-right:5px;margin-top:5px;">
+           </div>
+           <div ng-hide="showme"><img ng-src="whiteheart.png" ng-click="showme=true;addPopularity(item.popularity)" style="max-width:100%; max-height:20px; float:right;"> 
+             <div style="font-size:10px; margin-left:210px;">{{item.popularity}}</div>
+           </div>
+            <div ng-show="showme"><img ng-src="redheart.png" ng-click="showme=false" style=" max-width:100%; max-height:20px; float:right;"> 
+             <div style="font-size:10px; margin-left:210px;">{{newpopularity}}</div>
            </div>
            <div class="name">
            <div style="font-size:16px"><b>{{item.name}}</b></div>
