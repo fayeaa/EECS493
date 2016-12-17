@@ -41,8 +41,8 @@
         <div>
           <span style="color:midnightblue;">Sort:</span>
           <div class="btn-group btn-group-sm">
-          <button type="button" ng-click="newsort=false" class="btn btn-primary" id="popularity_switch">By Popularity</button>
-           <button type="button" ng-click="newsort=true" class="btn btn-primary" id="date_switch">By Date</button>
+          <button type="button" ng-click="newsort=false" class="btn btn-default" id="popularity_switch" ng-model="radioModel" btn-radio="'Left'">By Popularity</button>
+           <button type="button" ng-click="newsort=true" class="btn btn-default" id="date_switch" ng-model="radioModel" btn-radio="'Right'">By Date</button>
           </div>
         </div>
         <br>
