@@ -22,9 +22,12 @@ app.controller('ListEvent',function($scope){
             marker.setMap(null);
         });
     }
-    $scope.addPopularity=function(popularity){
-        $scope.newpopularity = parseInt(popularity) + 1;
-        console.log($scope.newpopularity);
+    $scope.addPopularity=function(event){
+        event.popularity = parseInt(event.popularity) + 1;
+    }
+
+    $scope.removePopularity=function(event){
+        event.popularity = parseInt(event.popularity) - 1;
     }
 });
 
@@ -157,6 +160,11 @@ function initMap() {
         for (i = 0; i < gmarkers.length; i++) {
             gmarkers[i].setMap(null);
         }
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+            marker.setMap(null);
+        });
+        markers = [];
 
         // use geocoder to get info for place
         geocoder.geocode({'location': latlng}, function(results, status) {

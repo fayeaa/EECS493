@@ -64,11 +64,11 @@
                                 <div ng-show="item.category=='sports'">
                                     <img ng-src="sports.png" style="max-width:100%; max-height:40px;float:left;margin-right:5px;margin-top:5px;">
                                 </div>
-                                <div ng-hide="showme" style="float:right"><img ng-src="whiteheart.png" ng-click="showme=true;addPopularity(item.popularity)" style="max-width:100%; max-height:20px; float:right;">
+                                <div ng-hide="showme" style="float:right"><img ng-src="whiteheart.png" ng-click="showme=true;addPopularity(item)" style="max-width:100%; max-height:20px; float:right;">
                                     <div style="font-size:10px; ">{{item.popularity}}</div>
                                 </div>
-                                <div ng-show="showme"  style="float:right"><img ng-src="redheart.png" ng-click="showme=false" style=" max-width:100%; max-height:20px; float:right;">
-                                    <div style="font-size:10px;">{{newpopularity}}</div>
+                                <div ng-show="showme"  style="float:right"><img ng-src="redheart.png" ng-click="showme=false;removePopularity(item)" style=" max-width:100%; max-height:20px; float:right;">
+                                    <div style="font-size:10px;">{{item.popularity}}</div>
                                 </div>
                                 <div class="name">
                                     <div style="font-size:16px ;float:top"><b>{{item.name}}</b></div>
