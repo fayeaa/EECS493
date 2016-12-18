@@ -109,36 +109,42 @@ var placesInfo = {
     "2281 Bonisteel Blvd, Ann Arbor, MI 48109, USA" : {
         "events" : ["Microsoft Resume Critique: November 14th, 12pm-3pm",
         "Startup Career Fair: November 15th, 10am-4pm",
-        "Engineering Global Leaders Seminar: November 18th, 2pm-3pm"]
+        "Engineering Global Leaders Seminar: November 18th, 2pm-3pm"],
+        "title" : "Duderstadt Center",
+        "blurb" : "The James and Anne Duderstadt Center, formerly known as the Media Union, opened in 1996 as a special place to provide faculty and students with the tools and collaborative space for creating the future. Located on the University of Michigan North Campus, the Duderstadt Center houses the Art, Architecture, and Engineering Library, the College of Engineering Computer Aided Engineering Network (CAEN), the Digital Media Commons, and the Millennium Project, the building provides a nexus for creative and technological innovation across disciplines."
     },
     "2101 Bonisteel Blvd, Ann Arbor, MI 48109, USA" : {
         "events" : ["Center for Student Affairs Breakfast: November 12th, 10am-12pm",
         "Giving Blue Day: November 29th, 10am-4pm",
-        "Poster Sale: December 2nd, 9am-5pm"]
+        "Poster Sale: December 2nd, 9am-5pm"],
+        "title" : "Pierpont Commons",
+        "blurb": "Pierpont Commons is the University of Michigan's student union on North Campus. Pierpont hosts a wide range of student services nestled between inviting lounges to relax and entertain. A wide range of services can be found there including a U-M Credit Union, ATMs, a bookstore, a convenience store, and a variety of food choices. With its unique location, Pierpont  is a great way to escape the bustle of Central Campus and downtown Ann Arbor. It is not uncommon to spot wildlife among the North Campus neighborhood! Through its staff, events, and partnerships, Pierpont Commons creates an environment where students can learn and unwind in an area far from home."
+    },
+    "1290 Murfin Ave, Ann Arbor, MI 48109, USA" : {
+        "events" : ["Center for Student Affairs Breakfast: November 12th, 10am-12pm",
+        "Giving Blue Day: November 29th, 10am-4pm",
+        "Poster Sale: December 2nd, 9am-5pm"],
+        "title" : "Pierpont Commons",
+        "blurb": "Pierpont Commons is the University of Michigan's student union on North Campus. Pierpont hosts a wide range of student services nestled between inviting lounges to relax and entertain. A wide range of services can be found there including a U-M Credit Union, ATMs, a bookstore, a convenience store, and a variety of food choices. With its unique location, Pierpont  is a great way to escape the bustle of Central Campus and downtown Ann Arbor. It is not uncommon to spot wildlife among the North Campus neighborhood! Through its staff, events, and partnerships, Pierpont Commons creates an environment where students can learn and unwind in an area far from home."
     }
 }
 
-function getPlaceInfo(address) {
-    console.log(address)
-    console.log(typeof(address))
-    console.log(address == "2281 Bonisteel Blvd, Ann Arbor, MI 48109, USA")
-    try {
-        var events_arr = placesInfo[address];
+/* Open when someone clicks on the span element */
+function openNav(title, blurb, events) {
+    console.log("opening navigation", title, blurb, events);
+    document.getElementById("overlayContentTitle").innerHTML = "<li>"+title+"</li>"
+    document.getElementById("overlayContentBlurb").innerHTML = "<li>"+blurb+"</li>";
+    var contentBody = ""
+    for(i=0; i < events.length; i++) {
+        contentBody += "<li>" + events[i] + "</li>";
+    }
+    document.getElementById("overlayContentBody").innerHTML = contentBody;
+    document.getElementById("myNav").style.width = "100%";
+}
 
-        console.log(events_arr)
-        console.log(typeof(events_arr))
-        var events = events_arr.join('\n');
-        // var events = ""
-        // for(i = 0; i < events_arr.length; i++) {
-        //     console.llg(events_arr[i])
-        //     events += events_arr[i] + '\n'
-        // }
-    }
-    catch (e) {
-        // statements to handle any exceptions
-        console.log(e); // pass exception object to error handler
-    }
-    return events;
+/* Close when someone clicks on the "x" symbol inside the overlay */
+function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
 }
 
 // Globals for the map because idgaf about style
@@ -168,17 +174,25 @@ function initMap() {
                         position: latlng,
                         map: map
                     });
+                    console.log(results)
+                    var address = results[0].formatted_address;
+                    console.log(address)
                     gmarkers.push(marker);
-                    console.log("*******", results)
-                    var events = getPlaceInfo(results[0].formatted_address)
-                    console.log("========", events)
-                    infowindow.setContent(events);
-                    infowindow.open(map, marker);
                 } else {
                     window.alert('No results found');
                 }
             } else {
                 window.alert('Geocoder failed due to: ' + status);
+            }
+            // info for navigation
+            try {
+                var events_arr = placesInfo[address]["events"];
+                var title = placesInfo[address]["title"];
+                var blurb = placesInfo[address]["blurb"];
+                openNav(title, blurb, events_arr);
+            }
+            catch (e) {
+                console.log(e);
             }
         });
 
@@ -187,11 +201,12 @@ function initMap() {
         }
     });
 
-    var icon = {
+    //  Modified to global
+    icon = {
         url: 'um_marker.png',
         size: new google.maps.Size(80, 128),
         origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
+        anchor: new google.maps.Point(17, 54),//  Modified from 34 to 54 for better view
         scaledSize: new google.maps.Size(30, 48)
     };
 
