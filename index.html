@@ -25,11 +25,14 @@
 <body ng-app = "EventOnCampus">
   <div  >
   <div class="background" >
+    <div id="welcome" style="background:#FFDC33;height:800px;width:1600px;position:absolute;">
 
+      <img src="welcomehome.png" style="position:fixed; z-index:1; height:300px;left:400px;top:250px;"/>
+    </div>
   <div class="mapTitle">
     <div>University of Michigan Interactive Map</div>
   </div>
-  <div style="margin:20px; height:500px;position:relative; top:20px">
+  <div style="margin:20px; height:540px;position:relative; top:20px">
       <div class="eventsList">
         <div style="color:midnightblue; font-size:19px; text-align:center; font-weight:bold;">
         Events on Campus
@@ -50,25 +53,25 @@
          <div ng-repeat = "item in UMevents|filter: selected:item.category|orderBy:(newsort==true?'':'-popularity')" class="singleEvents" ng-click="searchMap(item.place)" ng-model=item.place>
 
            <div ng-show="item.category=='entertainment'">
-             <img ng-src="entertainment.png" style="max-width:100%; max-height:45px;float:left;margin-right:5px;margin-top:5px;">
+             <img ng-src="entertainment.png" style="max-width:100%; max-height:40px;float:left;margin-right:5px;margin-top:5px;">
            </div>
            <div ng-show="item.category=='academic'">
-             <img ng-src="academic.png" style="max-width:100%; max-height:45px;float:left;margin-right:5px;margin-top:5px;">
+             <img ng-src="academic.png" style="max-width:100%; max-height:40px;float:left;margin-right:5px;margin-top:5px;">
            </div>
            <div ng-show="item.category=='music'">
-             <img ng-src="music.png" style="max-width:100%; max-height:50px;float:left;margin-right:5px;margin-top:5px;">
+             <img ng-src="music.png" style="max-width:100%; max-height:45px;float:left;margin-right:5px;margin-top:5px;">
            </div>
            <div ng-show="item.category=='sports'">
-             <img ng-src="sports.png" style="max-width:100%; max-height:45px;float:left;margin-right:5px;margin-top:5px;">
+             <img ng-src="sports.png" style="max-width:100%; max-height:40px;float:left;margin-right:5px;margin-top:5px;">
            </div>
-           <div ng-hide="showme"><img ng-src="whiteheart.png" ng-click="showme=true;addPopularity(item.popularity)" style="max-width:100%; max-height:20px; float:right;"> 
-             <div style="font-size:10px; margin-left:210px;">{{item.popularity}}</div>
+           <div ng-hide="showme" style="float:right"><img ng-src="whiteheart.png" ng-click="showme=true;addPopularity(item.popularity)" style="max-width:100%; max-height:20px; float:right;">
+             <div style="font-size:10px; ">{{item.popularity}}</div>
            </div>
-            <div ng-show="showme"><img ng-src="redheart.png" ng-click="showme=false" style=" max-width:100%; max-height:20px; float:right;"> 
-             <div style="font-size:10px; margin-left:210px;">{{newpopularity}}</div>
+            <div ng-show="showme"  style="float:right"><img ng-src="redheart.png" ng-click="showme=false" style=" max-width:100%; max-height:20px; float:right;">
+             <div style="font-size:10px;">{{newpopularity}}</div>
            </div>
            <div class="name">
-           <div style="font-size:16px"><b>{{item.name}}</b></div>
+           <div style="font-size:16px ;float:top"><b>{{item.name}}</b></div>
            <div>{{item.disc}}</div>
          </div>
            <div class="detail">

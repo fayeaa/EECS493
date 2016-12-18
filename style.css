@@ -13,10 +13,19 @@
 }
 
 .background{
-  z-index: -1;
+  z-index: 1;
 }
 #backPic{
   opacity: 0.8;
+}
+#welcome{
+  position:fixed;
+  height:540px;
+  left:0px;
+  top:0px;
+  z-index: 3;
+
+
 }
 .mapTitle{
   background-color: #FFDC33;
@@ -28,7 +37,7 @@
   text-align: center;
   position: relative;
   top:20px;
-  z-index: 1;
+
   font-family: "Arial Black", Gadget, sans-serif;
   font-size: 45px;
 }
@@ -108,12 +117,12 @@
   outline:midnightblue solid 1px;
   overflow-y: scroll;
   overflow-x: hidden;
-  height:410px;
+  height:390px;
 }
 .singleEvents{
   background-color: white;
   border-bottom:midnightblue solid 1px;
-  font-size: 15px;
+  font-size: 14px;
   padding:8px;
   text-align: left;
 

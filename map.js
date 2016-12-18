@@ -1,4 +1,3 @@
-
 var map;
 var input;
 var searchBox;
@@ -82,7 +81,9 @@ var recent_event = [
 
 $(document).ready( function() {
 	console.log("sanity check");
-
+  //$("#welcome").animate({height:'800px',opacity:'0.2'},"slow")
+  //$("#welcome").fadeOut(3000);
+    $("#welcome").animate({width:'0px',opacity:'0'},3000);
 
 });
 
