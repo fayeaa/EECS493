@@ -51,7 +51,7 @@ var recent_event = [
         "date": "Friday, November 6th",
         "time": "9pm-11pm",
         "category": "entertainment",
-        "popularity": "89",
+        "popularity": 89,
         "latlng" : [42.275267,-83.741606]
     },
     {
@@ -62,7 +62,7 @@ var recent_event = [
         "date": "Saturday, November 7th",
         "time": "6:30pm-8pm",
         "category": "music",
-        "popularity": "51",
+        "popularity": 51,
         "latlng" : [42.280789,-83.738156]
     },
     {
@@ -73,7 +73,7 @@ var recent_event = [
         "date": "Thursday, November 12th",
         "time": "4pm-9pm",
         "category": "academic",
-        "popularity": "32",
+        "popularity": 32,
         "latlng" : [42.279148,-83.739045]
     },
     {
@@ -84,7 +84,7 @@ var recent_event = [
         "date": "Thursday, November 12th",
         "time": "7pm-9pm",
         "category": "sports",
-        "popularity": "64",
+        "popularity": 64,
         "latlng" : [42.264924,-83.746426]
     }
 ];
