@@ -52,7 +52,7 @@ app.controller('mapCtrl',function($scope,$interval){
     }, 100);
 });
 
-// Fengyi: added geolocation for geocoder's search
+// added geolocation for geocoder's search
 // add future ones with the help of google map
 var recent_event = [
 {
@@ -114,7 +114,7 @@ function initMap() {
         zoom: 16,
         center: north
       });
-      // Fengyi: Added geocoder global, convert info to latlng
+      //  Added geocoder global, convert info to latlng
       geocoder = new google.maps.Geocoder();
 
 
@@ -129,12 +129,12 @@ function initMap() {
         }));
       });
 
-      // Fengyi: Modified to global
+      //  Modified to global
       icon = {
         url: 'um_marker.png',
         size: new google.maps.Size(80, 128),
         origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 54),// Fengyi: Modified from 34 to 54 for better view
+        anchor: new google.maps.Point(17, 54),//  Modified from 34 to 54 for better view
         scaledSize: new google.maps.Size(30, 48)
       };
 
