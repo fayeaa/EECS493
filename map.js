@@ -8,39 +8,24 @@ var markers1 = [];
 var eventPlace;
 
 var app = angular.module('EventOnCampus', []);
+
 app.controller('ListEvent',function($scope){
     $scope.UMevents = recent_event;
     $scope.numEvent = function(){
         return $scope.numEvents.length;
     }
     $scope.category = ["", "entertainment", "music", "sports", "academic"];
-    console.log($scope.numEvent);
     $scope.searchMap=function(place){
-        //$scope.isActive = !$scope.isActive;
         console.log(place);
-        eventPlace = place + ', Ann Arbor, MI';
-        console.log(eventPlace);
+        eventPlace = place;
         markers.forEach(function(marker) {
             marker.setMap(null);
-        });
-        geocoder.geocode( { 'address': eventPlace }, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                markers.push(new google.maps.Marker({
-                    map: map,
-                    icon: icon2,
-                    position: results[0].geometry.location
-                }));
-            } else {
-                alert('Geocoder was not successful: ' + status);
-            }
         });
     }
     $scope.addPopularity=function(popularity){
         $scope.newpopularity = parseInt(popularity) + 1;
         console.log($scope.newpopularity);
     }
-
 });
 
 app.controller('mapCtrl',function($scope,$interval){
@@ -63,7 +48,8 @@ var recent_event = [
         "date": "Friday, November 6th",
         "time": "9pm-11pm",
         "category": "entertainment",
-        "popularity": "89"
+        "popularity": "89",
+        "latlng" : [42.275267,-83.741606]
     },
     {
         "name": "G-Men Concert",
@@ -73,8 +59,8 @@ var recent_event = [
         "date": "Saturday, November 7th",
         "time": "6:30pm-8pm",
         "category": "music",
-        "popularity": "51"
-
+        "popularity": "51",
+        "latlng" : [42.280789,-83.738156]
     },
     {
         "name": "TedX U of M",
@@ -84,7 +70,8 @@ var recent_event = [
         "date": "Thursday, November 12th",
         "time": "4pm-9pm",
         "category": "academic",
-        "popularity": "32"
+        "popularity": "32",
+        "latlng" : [42.279148,-83.739045]
     },
     {
         "name": "Men's Basketball",
@@ -94,15 +81,16 @@ var recent_event = [
         "date": "Thursday, November 12th",
         "time": "7pm-9pm",
         "category": "sports",
-        "popularity": "64"
+        "popularity": "64",
+        "latlng" : [42.264924,-83.746426]
     }
 ];
 
 $(document).ready( function() {
     console.log("sanity check");
-    //$("#welcome").animate({height:'800px',opacity:'0.2'},"slow")
-    //$("#welcome").fadeOut(3000);
-    $("#welcome").animate({width:'0px',opacity:'0'},3000);
+    $("#welcome").animate({width:'0px',opacity:'0'},3000, function() {
+        $("#welcome").remove();
+    });
 });
 
 var placesInfo = {
@@ -129,9 +117,8 @@ var placesInfo = {
     }
 }
 
-/* Open when someone clicks on the span element */
+// Open when someone clicks on the span element
 function openNav(title, blurb, events) {
-    console.log("opening navigation", title, blurb, events);
     document.getElementById("overlayContentTitle").innerHTML = "<li>"+title+"</li>"
     document.getElementById("overlayContentBlurb").innerHTML = "<li>"+blurb+"</li>";
     var contentBody = ""
@@ -142,12 +129,12 @@ function openNav(title, blurb, events) {
     document.getElementById("myNav").style.width = "100%";
 }
 
-/* Close when someone clicks on the "x" symbol inside the overlay */
+// Close when someone clicks on the "x" symbol inside the overlay
 function closeNav() {
     document.getElementById("myNav").style.width = "0%";
 }
 
-// Globals for the map because idgaf about style
+// Globals for the map markers because idgaf about style
 var gmarkers = [];
 
 function initMap() {
@@ -160,13 +147,18 @@ function initMap() {
     var geocoder = new google.maps.Geocoder;
     var infowindow = new google.maps.InfoWindow;
 
+    // event listener for map clicks
     google.maps.event.addListener(map, 'click', function(event) {
-        console.log("YELLOWWWWWW")
         var latitude = event.latLng.lat();
         var longitude = event.latLng.lng();
-        console.log(latitude, longitude)
         var latlng = {lat: latitude, lng: longitude}
 
+        // remove all other markers when map is clicked on
+        for (i = 0; i < gmarkers.length; i++) {
+            gmarkers[i].setMap(null);
+        }
+
+        // use geocoder to get info for place
         geocoder.geocode({'location': latlng}, function(results, status) {
             if (status === 'OK') {
                 if (results[1]) {
@@ -174,9 +166,7 @@ function initMap() {
                         position: latlng,
                         map: map
                     });
-                    console.log(results)
                     var address = results[0].formatted_address;
-                    console.log(address)
                     gmarkers.push(marker);
                 } else {
                     window.alert('No results found');
@@ -195,13 +185,9 @@ function initMap() {
                 console.log(e);
             }
         });
-
-        for (i = 0; i < gmarkers.length; i++) {
-            gmarkers[i].setMap(null);
-        }
     });
 
-    //  Modified to global
+    // custom U of M map marker
     icon = {
         url: 'um_marker.png',
         size: new google.maps.Size(80, 128),
@@ -212,110 +198,97 @@ function initMap() {
 
     // Create the search box and link it to the UI element.
     input = document.getElementById('pac-input');
+
     //click event
     var button = document.getElementById('list');
-    console.log(button);
     button.onclick = function () {
         var location = eventPlace;
         console.log(location);
 
+        // remove all other markers when map is clicked on
+        for (i = 0; i < gmarkers.length; i++) {
+            gmarkers[i].setMap(null);
+        }
+
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+            marker.setMap(null);
+        });
+        markers = [];
+
+        for(i=0; i < recent_event.length; i++) {
+            if(recent_event[i]["geolocation"] == location) {
+                var this_lat = recent_event[i]["latlng"][0];
+                var this_lng = recent_event[i]["latlng"][1];
+                var this_latlng = {lat: this_lat, lng: this_lng};
+                map.panTo(this_latlng);
+                // map.setCenter(new google.maps.LatLng(this_lat, this_lng));
+                var marker = new google.maps.Marker({
+                    position: this_latlng,
+                    map: map
+                });
+                gmarkers.push(marker);
+            }
+        }
     };
-    //searchBox
+
+    // search box
     searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-    // Bias the SearchBox results towards current map's viewport.
+
+    // tbh idk what this does
     map.addListener('bounds_changed', function() {
         searchBox.setBounds(map.getBounds());
     });
 
-    // [START region_getplaces]
-    // Listen for the event fired when the user selects a prediction and retrieve
-    // more details for that place.
     searchBox.addListener('places_changed', function() {
+        // remove all other markers when map is clicked on
+        for (i = 0; i < gmarkers.length; i++) {
+            gmarkers[i].setMap(null);
+        }
+
+
         var places = searchBox.getPlaces();
 
-        // [START region_getplaces]
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function() {
-            var places = searchBox.getPlaces();
-
-            if (places.length == 0) {
-                return;
-            }
-
-            // Clear out the old markers.
-            markers.forEach(function(marker) {
-                marker.setMap(null);
-            });
-            markers = [];
-
-            // For each place, get the icon, name and location.
-            var bounds = new google.maps.LatLngBounds();
-            places.forEach(function(place) {
-                //console.log(place);
-
-                // Create a marker for each place.
-                markers.push(new google.maps.Marker({
-                    map: map,
-                    icon: icon1,
-                    title: place.name,
-                    position: place.geometry.location
-                }));
-                //show pop-out window
-                test1=markers[0].title;
-                test2=markers[0].position;
-
-                var infowindow = new google.maps.InfoWindow({
-                    content:markers[0].title,
-                    position: place.geometry.location
-                });
-
-                google.maps.event.addListener(markers[0], 'click', function() {
-                    infowindow.open(map,markers[0]);
-                    $('#myModal').modal('show');
-
-                    // Clear out the old markers.
-                    markers.forEach(function(marker) {
-                        marker.setMap(null);
-                    });
-                    markers = [];
-
-                    // For each place, get the icon, name and location.
-                    var bounds = new google.maps.LatLngBounds();
-                    places.forEach(function(place) {
-                        //console.log(place);
-
-                        // Create a marker for each place.
-                        markers.push(new google.maps.Marker({
-                            map: map,
-                            icon: icon,
-                            title: place.name,
-                            position: place.geometry.location
-                        }));
-                        //show pop-out window
-                        test1=markers[0].title;
-                        test2=markers[0].position;
-
-                        var infowindow = new google.maps.InfoWindow({
-                            content:markers[0].title,
-                            position: place.geometry.location
-                        });
-
-                        google.maps.event.addListener(markers[0], 'click', function() {
-                            infowindow.open(map,markers[0]);
-                            $('#myModal').modal('show');
-
-                        });
-
-                        if (place.geometry.viewport) {
-                            // Only geocodes have viewport.
-                            bounds.union(place.geometry.viewport);
-                        } else {
-                            bounds.extend(place.geometry.location);
-                        }
-                    });
-                    map.fitBounds(bounds);
-                });
-            }
+        if (places.length == 0) {
+            return;
         }
+
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+            marker.setMap(null);
+        });
+        markers = [];
+
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+                map: map,
+                icon: icon,
+                title: place.name,
+                position: place.geometry.location
+            }));
+
+            //show pop-out window
+            test1=markers[0].title;
+            test2=markers[0].position;
+
+            var infowindow = new google.maps.InfoWindow({
+                content:markers[0].title,
+                position: place.geometry.location
+            });
+
+            infowindow.open(map,markers[0]);
+            $('#myModal').modal('show');
+
+            if (place.geometry.viewport) {
+                // Only geocodes have viewport.
+                bounds.union(place.geometry.viewport);
+            } else {
+                bounds.extend(place.geometry.location);
+            }
+        })
+        map.fitBounds(bounds);
+    })
+}
