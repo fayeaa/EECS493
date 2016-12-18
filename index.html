@@ -2,132 +2,128 @@
 
 <html lang="en-US">
 <head>
-    <title>University of Michigan Interactive Map</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <title>University of Michigan Interactive Map</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
-    <link rel="stylesheet" href="style.css" />
-    <script src="map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQQQZNZLunDSCOcQy4cxD4SnKs2DQxLGk&libraries=places&callback=initMap" async defer></script>
-
+  <link rel="stylesheet" href="style.css" />
+  <script src="map.js"></script>
+  <script src="events.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQQQZNZLunDSCOcQy4cxD4SnKs2DQxLGk&libraries=places&callback=initMap" async defer></script>
 </title>
 
 <body ng-app = "EventOnCampus">
-    <div  >
-        <div class="background" >
-            <div id="welcome" style="background:#FFDC33;height:800px;width:1600px;position:absolute;">
+  <div class="background" >
+    <img id="backPic" src="back1.jpg" style="position:absolute; width:100%; height:100%">
+  <div class="mapTitle">
+    <h3>University of Michigan Interactive Map</h3>
+  </div>
+  <div style="margin:20px; height:500px;position:relative; top:20px">
+      <div class="eventsList">
+        <div style="color:DodgerBlue; font-size:17px; text-shadow: 1px 1px #191970;">
+        Events on Campus<br><br>
+      </div>
+      <div ng-controller = "ListEvent">
+          {{numEvent}}
+         <div ng-repeat = "item in UMevents" class="singalEvents">
+           <div><b>{{item.name}}</b></div>
+           <div>{{item.disc}}</div>
+           <div>{{item.place}}</div>
+           <div>{{item.date}}</div>
+           <div>{{item.time}}</div>
 
-                <img src="welcomehome.png" style="position:fixed; z-index:1; height:300px;left:400px;top:250px;"/>
-            </div>
-            <div class="mapTitle">
-                <div>University of Michigan Interactive Map</div>
-            </div>
-            <div style="margin:20px; height:540px;position:relative; top:20px">
-                <div class="eventsList">
-                    <div style="color:midnightblue; font-size:19px; text-align:center; font-weight:bold;">
-                        Events on Campus
-                    </div>
-                    <div ng-controller = "ListEvent">
-                        <span style="color:midnightblue;">Category:</span>
-                        <select id="select" ng-model="selected" ng-init="selected = category[0]" ng-options="item for item in category">
-                        </select>
-                        <div>
-                            <span style="color:midnightblue;">Sort:</span>
-                            <div class="btn-group btn-group-sm">
-                                <button type="button" ng-click="newsort=false" class="btn btn-default" id="popularity_switch" ng-model="radioModel" btn-radio="'Left'">By Popularity</button>
-                                <button type="button" ng-click="newsort=true" class="btn btn-default" id="date_switch" ng-model="radioModel" btn-radio="'Right'">By Date</button>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="displayEvents" id="list">
-                            <div ng-repeat = "item in UMevents|filter: selected:item.category|orderBy:(newsort==true?'':'-popularity')" class="singleEvents" ng-click="searchMap(item.geolocation)" ng-model=item.place>
-                                <!-- : modified ng-click function to take item.geolocation -->
-                                <div ng-show="item.category=='entertainment'">
-                                    <img ng-src="entertainment.png" style="max-width:100%; max-height:40px;float:left;margin-right:5px;margin-top:5px;">
-                                </div>
-                                <div ng-show="item.category=='academic'">
-                                    <img ng-src="academic.png" style="max-width:100%; max-height:40px;float:left;margin-right:5px;margin-top:5px;">
-                                </div>
-                                <div ng-show="item.category=='music'">
-                                    <img ng-src="music.png" style="max-width:100%; max-height:45px;float:left;margin-right:5px;margin-top:5px;">
-                                </div>
-                                <div ng-show="item.category=='sports'">
-                                    <img ng-src="sports.png" style="max-width:100%; max-height:40px;float:left;margin-right:5px;margin-top:5px;">
-                                </div>
-                                <div ng-hide="showme" style="float:right"><img ng-src="whiteheart.png" ng-click="showme=true;addPopularity(item)" style="max-width:100%; max-height:20px; float:right;">
-                                    <div style="font-size:10px; ">{{item.popularity}}</div>
-                                </div>
-                                <div ng-show="showme"  style="float:right"><img ng-src="redheart.png" ng-click="showme=false;removePopularity(item)" style=" max-width:100%; max-height:20px; float:right;">
-                                    <div style="font-size:10px;">{{item.popularity}}</div>
-                                </div>
-                                <div class="name">
-                                    <div style="font-size:16px ;float:top"><b>{{item.name}}</b></div>
-                                    <div>{{item.disc}}</div>
-                                </div>
-                                <div class="detail">
-                                    <div>{{item.place}}</div>
-                                    <div>{{item.date}}</div>
-                                    <div>{{item.time}}</div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mapContainer">
-                    <input id="pac-input" class="controls" type="text" placeholder="Search for locations on campus" ng-model="mapSearchbox">
-                    <div class="mapview" id="map" ></div>
-                </div>
-            </div>
+        </div>
         </div>
     </div>
+      <div class="mapContainer">
+        <div class="btn-group btn-group-sm">
+        <button type="button" class="btn btn-primary active" id="north_switch">North Campus</button>
+        <button type="button" class="btn btn-primary" id="central_switch">Central Campus</button>
+      </div>
+        <div class="mapview" id="map" ></div>
+      </div>
+  </div>
+  </div>
 
-    <!-- The overlay -->
-    <div id="myNav" class="overlay">
-        <!-- Button to close the overlay navigation -->
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <!-- Overlay content -->
-        <div class="overlay-content">
-            <div id="overlayContentTitle" style="list-style-type: none; font-size: 40px; font-family: Helvetica; color: white"></div>
-            <br><br>
-            <div id="overlayContentBlurb" style="list-style-type: none; font-size: 20px; font-family: Helvetica; color: white"></div>
-            <br><br>
-            <ul id="overlayContentBody" style="list-style-type: none; font-size: 26px; font-family: Helvetica; color: white"></ul>
-        </div>
-    </div>
+  <script>
+    function initMap() {
+      var north = {lat: 42.292, lng: -83.716};
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: north
+      });
+      // var marker = new google.maps.Marker({
+      //   position: north,
+      //   map: map
+      // });
+      // Create the search box and link it to the UI element.
+      var input = document.getElementById('pac-input');
+      var searchBox = new google.maps.places.SearchBox(input);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-    <div ng-controller="mapCtrl">
-        <div id="myModal" class="modal fade" role = "dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss = "modal">&times;</button><!-- close icon-->
-                        <h4 id = "selectedArtistName" class="modal-title">{{placeTitle}}</h4>
-                    </div>
-                    <div class="modal-body" >
-                        Upcoming Events:
-                        <br>
-                        No upcoming events
-                    </div>
-                    <div class="modal-footer">
-                        <div>
-                            <br>
-                            <button type="button" class="btn btn-default" data-dismiss = "modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+      // Bias the SearchBox results towards current map's viewport.
+      map.addListener('bounds_changed', function() {
+      searchBox.setBounds(map.getBounds());
+    });
+
+      var markers = [];
+      // [START region_getplaces]
+      // Listen for the event fired when the user selects a prediction and retrieve
+      // more details for that place.
+      searchBox.addListener('places_changed', function() {
+      var places = searchBox.getPlaces();
+
+      if (places.length == 0) {
+      return;
+      }
+
+      // Clear out the old markers.
+      markers.forEach(function(marker) {
+      marker.setMap(null);
+      });
+      markers = [];
+
+      // For each place, get the icon, name and location.
+      var bounds = new google.maps.LatLngBounds();
+      places.forEach(function(place) {
+      var icon = {
+        url: 'um_marker.png',
+        size: new google.maps.Size(80, 128),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(30, 48)
+      };
+
+      // Create a marker for each place.
+      markers.push(new google.maps.Marker({
+        map: map,
+        icon: icon,
+        title: place.name,
+        position: place.geometry.location
+      }));
+
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+     });
+     map.fitBounds(bounds);
+    });
+
+  }
+  </script>
+
 </body>
 </html>
