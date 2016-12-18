@@ -11,7 +11,7 @@ var app = angular.module('EventOnCampus', []);
 app.controller('ListEvent',function($scope){
     $scope.UMevents = recent_event;
     $scope.numEvent = function(){
-    	return $scope.numEvents.length;
+      return $scope.numEvents.length;
     }
     $scope.category = ["", "entertainment", "music", "sports", "academic"];
     console.log("1");
@@ -56,51 +56,51 @@ app.controller('mapCtrl',function($scope,$interval){
 // add future ones with the help of google map
 var recent_event = [
 {
-	"name": "Umix",
-	"disc": "Enjoy Harry Potter themed games and crafts",
-	"place": "Michigan Union, Grand Ballroom",
+  "name": "Umix",
+  "disc": "Enjoy Harry Potter themed games and crafts",
+  "place": "Michigan Union, Grand Ballroom",
   "geolocation": "530 S State St, Ann Arbor, MI 48109",
-	"date": "Friday, November 6th",
-	"time": "9pm-11pm",
-	"category": "entertainment",
+  "date": "Friday, November 6th",
+  "time": "9pm-11pm",
+  "category": "entertainment",
   "popularity": "89"
 },
 {
-	"name": "G-Men Concert",
-	"disc": "Michigan's finest men's acappella group live",
-	"place": "Rackham Auditorium",
+  "name": "G-Men Concert",
+  "disc": "Michigan's finest men's acappella group live",
+  "place": "Rackham Auditorium",
   "geolocation": "915 E Washington St, Ann Arbor, MI 48109",
-	"date": "Saturday, November 7th",
-	"time": "6:30pm-8pm",
-	"category": "music",
+  "date": "Saturday, November 7th",
+  "time": "6:30pm-8pm",
+  "category": "music",
   "popularity": "51"
 
 },
 {
-	"name": "TedX U of M",
-	"disc": "Hear great speakers share their stories",
-	"place": "Hill Auditorium",
+  "name": "TedX U of M",
+  "disc": "Hear great speakers share their stories",
+  "place": "Hill Auditorium",
   "geolocation": "825 N University Ave, Ann Arbor, MI 48109",
-	"date": "Thursday, November 12th",
-	"time": "4pm-9pm",
-	"category": "academic",
+  "date": "Thursday, November 12th",
+  "time": "4pm-9pm",
+  "category": "academic",
   "popularity": "32"
 },
 {
-	"name": "Men's Basketball",
-	"disc": "Woverines take on the bobcats at home",
-	"place": "Crisler Arena",
+  "name": "Men's Basketball",
+  "disc": "Woverines take on the bobcats at home",
+  "place": "Crisler Arena",
   "geolocation": "333 E Stadium Blvd, Ann Arbor, MI 48109",
-	"date": "Thursday, November 12th",
-	"time": "7pm-9pm",
-	"category": "sports",
+  "date": "Thursday, November 12th",
+  "time": "7pm-9pm",
+  "category": "sports",
   "popularity": "64"
 }
 ];
 
 
 $(document).ready( function() {
-	console.log("sanity check");
+  console.log("sanity check");
   //$("#welcome").animate({height:'800px',opacity:'0.2'},"slow")
   //$("#welcome").fadeOut(3000);
     $("#welcome").animate({width:'0px',opacity:'0'},3000);
@@ -134,7 +134,7 @@ function initMap() {
         url: 'um_marker.png',
         size: new google.maps.Size(80, 128),
         origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 54),//  Modified from 34 to 54 for better view
+        anchor: new google.maps.Point(17, 34),//  Modified from 34 to 54 for better view
         scaledSize: new google.maps.Size(30, 48)
       };
 
@@ -142,7 +142,7 @@ function initMap() {
         url: 'um_marker.png',
         size: new google.maps.Size(80, 128),
         origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 54),//  Modified from 34 to 54 for better view
+        anchor: new google.maps.Point(17, 34),//  Modified from 34 to 54 for better view
         scaledSize: new google.maps.Size(30, 48)
       };
 
