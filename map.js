@@ -19,9 +19,24 @@ app.controller('ListEvent',function($scope){
     $scope.searchMap=function(place){
       //$scope.isActive = !$scope.isActive;
       console.log(place);
-      eventPlace = place;
+      eventPlace = place + ', Ann Arbor, MI';
       console.log(eventPlace);
-      }
+      markers.forEach(function(marker) {
+        marker.setMap(null);
+      });
+      geocoder.geocode( { 'address': eventPlace }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            markers.push(new google.maps.Marker({
+                map: map,
+                icon: icon,
+                position: results[0].geometry.location
+            }));
+        } else {
+          alert('Geocoder was not successful: ' + status);
+        }
+      });
+    }
     $scope.addPopularity=function(popularity){
       $scope.newpopularity = parseInt(popularity) + 1;
       console.log($scope.newpopularity);
@@ -37,12 +52,14 @@ app.controller('mapCtrl',function($scope,$interval){
     }, 100);
 });
 
-
+// Fengyi: added geolocation for geocoder's search
+// add future ones with the help of google map
 var recent_event = [
 {
 	"name": "Umix",
 	"disc": "Enjoy Harry Potter themed games and crafts",
 	"place": "Michigan Union, Grand Ballroom",
+  "geolocation": "530 S State St, Ann Arbor, MI 48109",
 	"date": "Friday, November 6th",
 	"time": "9pm-11pm",
 	"category": "entertainment",
@@ -52,6 +69,7 @@ var recent_event = [
 	"name": "G-Men Concert",
 	"disc": "Michigan's finest men's acappella group live",
 	"place": "Rackham Auditorium",
+  "geolocation": "915 E Washington St, Ann Arbor, MI 48109",
 	"date": "Saturday, November 7th",
 	"time": "6:30pm-8pm",
 	"category": "music",
@@ -62,6 +80,7 @@ var recent_event = [
 	"name": "TedX U of M",
 	"disc": "Hear great speakers share their stories",
 	"place": "Hill Auditorium",
+  "geolocation": "825 N University Ave, Ann Arbor, MI 48109",
 	"date": "Thursday, November 12th",
 	"time": "4pm-9pm",
 	"category": "academic",
@@ -70,7 +89,8 @@ var recent_event = [
 {
 	"name": "Men's Basketball",
 	"disc": "Woverines take on the bobcats at home",
-	"place": "Crisier Arena",
+	"place": "Crisler Arena",
+  "geolocation": "333 E Stadium Blvd, Ann Arbor, MI 48109",
 	"date": "Thursday, November 12th",
 	"time": "7pm-9pm",
 	"category": "sports",
@@ -94,7 +114,8 @@ function initMap() {
         zoom: 16,
         center: north
       });
-
+      // Fengyi: Added geocoder global, convert info to latlng
+      geocoder = new google.maps.Geocoder();
 
 
       google.maps.event.addListener(map, 'click', function(event) {
@@ -108,19 +129,14 @@ function initMap() {
         }));
       });
 
-      var icon = {
+      // Fengyi: Modified to global
+      icon = {
         url: 'um_marker.png',
         size: new google.maps.Size(80, 128),
         origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
+        anchor: new google.maps.Point(17, 54),// Fengyi: Modified from 34 to 54 for better view
         scaledSize: new google.maps.Size(30, 48)
       };
-
-
-
-
-
-
 
       // Create the search box and link it to the UI element.
       input = document.getElementById('pac-input');

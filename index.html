@@ -50,8 +50,8 @@
         </div>
         <br>
           <div class="displayEvents" id="list">
-         <div ng-repeat = "item in UMevents|filter: selected:item.category|orderBy:(newsort==true?'':'-popularity')" class="singleEvents" ng-click="searchMap(item.place)" ng-model=item.place>
-
+         <div ng-repeat = "item in UMevents|filter: selected:item.category|orderBy:(newsort==true?'':'-popularity')" class="singleEvents" ng-click="searchMap(item.geolocation)" ng-model=item.place>
+           <!-- Fengyi: modified ng-click function to take item.geolocation -->
            <div ng-show="item.category=='entertainment'">
              <img ng-src="entertainment.png" style="max-width:100%; max-height:40px;float:left;margin-right:5px;margin-top:5px;">
            </div>
