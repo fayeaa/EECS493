@@ -29,7 +29,7 @@ app.controller('ListEvent',function($scope){
             map.setCenter(results[0].geometry.location);
             markers.push(new google.maps.Marker({
                 map: map,
-                icon: icon,
+                icon: icon2,
                 position: results[0].geometry.location
             }));
         } else {
@@ -124,13 +124,21 @@ function initMap() {
         });
         markers1.push(new google.maps.Marker({
           map: map,
-          icon: icon,
+          icon: icon1,
           position: event.latLng,
         }));
       });
 
       //  Modified to global
-      icon = {
+      icon1 = {
+        url: 'um_marker.png',
+        size: new google.maps.Size(80, 128),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 54),//  Modified from 34 to 54 for better view
+        scaledSize: new google.maps.Size(30, 48)
+      };
+
+      icon2 = {
         url: 'um_marker.png',
         size: new google.maps.Size(80, 128),
         origin: new google.maps.Point(0, 0),
@@ -181,7 +189,7 @@ function initMap() {
       // Create a marker for each place.
       markers.push(new google.maps.Marker({
         map: map,
-        icon: icon,
+        icon: icon1,
         title: place.name,
         position: place.geometry.location
       }));
